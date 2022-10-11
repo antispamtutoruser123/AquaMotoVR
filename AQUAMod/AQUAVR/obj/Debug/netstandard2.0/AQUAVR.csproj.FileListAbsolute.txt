@@ -10,7 +10,6 @@ C:\Users\jj131\AQUAMod\AQUAVR\bin\Debug\netstandard2.0\Assembly-CSharp-firstpass
 C:\Users\jj131\AQUAMod\AQUAVR\bin\Debug\netstandard2.0\XInputDotNetPure.dll
 C:\Users\jj131\AQUAMod\AQUAVR\bin\Debug\netstandard2.0\udpkit.dll
 C:\Users\jj131\AQUAMod\AQUAVR\bin\Debug\netstandard2.0\bolt.user.dll
-C:\Users\jj131\AQUAMod\AQUAVR\obj\Debug\netstandard2.0\AQUAVR.csproj.AssemblyReference.cache
 C:\Users\jj131\AQUAMod\AQUAVR\obj\Debug\netstandard2.0\PluginInfo.cs
 C:\Users\jj131\AQUAMod\AQUAVR\obj\Debug\netstandard2.0\AQUAVR.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\jj131\AQUAMod\AQUAVR\obj\Debug\netstandard2.0\AQUAVR.AssemblyInfoInputs.cache
@@ -19,3 +18,4 @@ C:\Users\jj131\AQUAMod\AQUAVR\obj\Debug\netstandard2.0\AQUAVR.csproj.CoreCompile
 C:\Users\jj131\AQUAMod\AQUAVR\obj\Debug\netstandard2.0\AQUAVR.csproj.CopyComplete
 C:\Users\jj131\AQUAMod\AQUAVR\obj\Debug\netstandard2.0\AQUAVR.dll
 C:\Users\jj131\AQUAMod\AQUAVR\obj\Debug\netstandard2.0\AQUAVR.pdb
+C:\Users\jj131\AQUAMod\AQUAVR\obj\Debug\netstandard2.0\AQUAVR.csproj.AssemblyReference.cache

@@ -14,6 +14,7 @@ namespace AQUAVR
         public static GameObject DummyCamera, VRCamera, VRPlayer;
         public static GameObject newUI;
         public static Vector3 startpos, startrot, offset;
+        public static bool fpmode = false;
 
         private static readonly string[] canvasesToIgnore =
 {
@@ -45,7 +46,24 @@ namespace AQUAVR
                 CameraManager.Recenter();
         }
 
-            [HarmonyPrefix]
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(JetskiPlayer), "Update")]
+        private static void getkeyboardinput(JetskiPlayer __instance)
+        {
+
+            if (Input.GetKeyDown(KeyCode.UpArrow)) {
+                DummyCamera.transform.position += new Vector3(0, 0.1f, 0);
+                startpos += new Vector3(0, 0.1f, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                DummyCamera.transform.position -= new Vector3(0, 0.1f, 0);
+                startpos -= new Vector3(0, 0.1f, 0);
+            }
+
+        }
+
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(JetskiCamera), "Awake")]
         private static void CreatCamera(JetskiCamera __instance)
         {
@@ -58,26 +76,37 @@ namespace AQUAVR
                 
                 DummyCamera.transform.parent = __instance.transform;
                 VRPlayer = __instance.gameObject;
-                DummyCamera.transform.localPosition = new Vector3(0.0817f, -2.0828f, 4.738f)- VRPlayer.transform.position+ new Vector3(0,.4f,0);
+                DummyCamera.transform.localPosition = new Vector3(0.0817f, -2.2828f, 4.738f)- VRPlayer.transform.position+ new Vector3(0,.4f,0);
               //  DummyCamera.transform.localPosition = new Vector3(0.0817f, -2.0828f, 4.738f);
               //  DummyCamera.transform.eulerAngles = new Vector3(359.6745f, 358.8231f, 4.313f);
 
                 VRCamera.transform.parent = DummyCamera.transform;
 
-                startpos = new Vector3(-.1f, 1.56f, -.22f);
+                startpos = new Vector3(-.1f, 1.36f, -.22f);
                 startrot = new Vector3(358.6f, 354.9f, .37f);
                 offset = startpos - VRCamera.transform.localPosition;
 
-               // CameraManager.Recenter();
+                if (GameObject.Find("mesh_DeepBlueBullhead"))
+                {
+                    startpos += new Vector3(0, .2f, 0);
+                    DummyCamera.transform.localPosition += new Vector3(0, .2f, 0);
+                }
+                // CameraManager.Recenter();
             }
         }
 
-        [HarmonyPrefix]
+            [HarmonyPrefix]
         [HarmonyPatch(typeof(JetskiCamera), "SetMode_FirstPerson")]
         private static void RecenterCamera(JetskiCamera __instance)
         {
             CameraManager.Recenter();
-          //  CameraManager.RecenterRotation();
+            fpmode = !fpmode;
+
+         /*   if(fpmode)
+            DummyCamera.transform.localPosition = new Vector3(.0477f,-1.7957f,.532f);
+          else
+                DummyCamera.transform.localPosition = new Vector3(.0477f, -1.8957f, 4.8265f);
+         */
         }
            
 
