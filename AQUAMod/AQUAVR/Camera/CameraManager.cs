@@ -17,8 +17,11 @@ namespace AQUAVR
             var angleOffset = CameraPatches.VRPlayer.transform.eulerAngles.y - CameraPatches.VRCamera.transform.eulerAngles.y;
             CameraPatches.DummyCamera.transform.RotateAround(CameraPatches.DummyCamera.transform.position, Vector3.up, angleOffset);
             CameraPatches.DummyCamera.transform.eulerAngles = Vector3.up * CameraPatches.DummyCamera.transform.eulerAngles.y;
-            var hud = GameObject.Find("HUD: Player");
-          //  hud.transform.RotateAround(CameraPatches.DummyCamera.transform.position, Vector3.up, angleOffset);
+           // var hud = GameObject.Find("HUD: Player");
+           // hud.transform.RotateAround(CameraPatches.DummyCamera.transform.position, Vector3.up, angleOffset);
+           // GameObject.Find("Card_PauseScreen").transform.RotateAround(CameraPatches.VRCamera.transform.position, Vector3.up, angleOffset);
+        
+
         }
 
         public static void Recenter()
@@ -27,15 +30,11 @@ namespace AQUAVR
             if (!CameraPatches.VRCamera) return;
 
             Vector3 offset = CameraPatches.startpos - CameraPatches.VRCamera.transform.localPosition;
-            Vector3 roffset = CameraPatches.startrot - CameraPatches.VRCamera.transform.localEulerAngles;
-
-           
 
             RecenterRotation();
 
             CameraPatches.DummyCamera.transform.Translate(offset - prevpos);
 
-            roffsetprev = roffset;
             prevpos = offset;
 
          /*   switch (cameramode)

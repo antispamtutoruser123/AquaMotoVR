@@ -25,8 +25,8 @@ namespace AQUAVR
         [HarmonyPatch(typeof(LoadingScreen), "Awake")]
         private static void LoadingScreen(LoadingScreen __instance)
         {
-            __instance.gameObject.transform.localScale = new Vector3(.1f, .1f, 1f);
-
+            __instance.gameObject.transform.localScale = new Vector3(.5f, .5f, 1f);
+            __instance.transform.localPosition += new Vector3(0, 1.5f, 02f);
         }
         [HarmonyPrefix]
         [HarmonyPatch(typeof(IntroSequence), "Start")]
@@ -36,7 +36,16 @@ namespace AQUAVR
 
         }
 
-        [HarmonyPrefix]
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(JetskiPlayer), "Start")]
+        private static void getinput(JetskiPlayer __instance)
+        {
+            
+                CameraManager.Recenter();
+        }
+
+            [HarmonyPrefix]
         [HarmonyPatch(typeof(JetskiCamera), "Awake")]
         private static void CreatCamera(JetskiCamera __instance)
         {
@@ -46,18 +55,20 @@ namespace AQUAVR
                 VRCamera = __instance.transform.Find("pCamera").gameObject;
                 VRCamera.GetComponent<Camera>().nearClipPlane = .01f;
                 VRCamera.GetComponent<Camera>().farClipPlane = 10000f;
+                
                 DummyCamera.transform.parent = __instance.transform;
                 VRPlayer = __instance.gameObject;
-
-                DummyCamera.transform.localPosition = new Vector3(0.0817f, -2.0828f, 4.738f);
-                DummyCamera.transform.eulerAngles = new Vector3(359.6745f, 358.8231f, 4.313f);
+                DummyCamera.transform.localPosition = new Vector3(0.0817f, -2.0828f, 4.738f)- VRPlayer.transform.position+ new Vector3(0,.4f,0);
+              //  DummyCamera.transform.localPosition = new Vector3(0.0817f, -2.0828f, 4.738f);
+              //  DummyCamera.transform.eulerAngles = new Vector3(359.6745f, 358.8231f, 4.313f);
 
                 VRCamera.transform.parent = DummyCamera.transform;
 
-                startpos = new Vector3(.012f, 1.56f, -.22f);
+                startpos = new Vector3(-.1f, 1.56f, -.22f);
                 startrot = new Vector3(358.6f, 354.9f, .37f);
                 offset = startpos - VRCamera.transform.localPosition;
 
+               // CameraManager.Recenter();
             }
         }
 
@@ -77,7 +88,14 @@ namespace AQUAVR
         {
             if (IsCanvasToIgnore(__instance.name)) return;
 
-  
+            var uicamera = GameObject.Find("UICamera_Main");
+            if (uicamera)
+            {
+                uicamera.GetComponent<Camera>().nearClipPlane = .01f;
+                uicamera.GetComponent<Camera>().farClipPlane = 10000f;
+
+            }
+
                 Logs.WriteInfo($"Hiding Canvas:  {__instance.name}");
             var canvas = __instance.gameObject.GetComponent<Canvas>();
 
